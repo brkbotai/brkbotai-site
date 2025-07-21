@@ -65,3 +65,28 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    ADMIN_EMAIL = "jamalassaki@hotmail.fr"
+    if 'email' not in session or session['email'] != ADMIN_EMAIL:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        if 'pdf' in request.files:
+            pdf = request.files['pdf']
+            if pdf.filename:
+                pdf.save(os.path.join('static/files', 'top5.pdf'))
+
+        if 'combine' in request.files:
+            combine = request.files['combine']
+            if combine.filename:
+                combine.save(os.path.join('static/img', 'combine.jpg'))
+
+        if 'fun' in request.files:
+            fun = request.files['fun']
+            if fun.filename:
+                fun.save(os.path.join('static/img', 'fun.jpg'))
+
+        return "Fichiers uploadés avec succès ! <a href='/upload'>Retour</a>"
+
+    return render_template('upload.html')

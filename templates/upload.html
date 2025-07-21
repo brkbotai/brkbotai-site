@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload - Admin BRKBOTAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Zone Admin - Upload quotidien</h1>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        <p><strong>Fichier PDF (Top 5 du jour)</strong></p>
+        <input type="file" name="pdf" accept=".pdf"><br><br>
+        
+        <p><strong>Image combiné du jour</strong></p>
+        <input type="file" name="combine" accept="image/*"><br><br>
+
+        <p><strong>Image fun du jour</strong></p>
+        <input type="file" name="fun" accept="image/*"><br><br>
+
+        <button type="submit">Uploader</button>
+    </form>
+</body>
+</html>
