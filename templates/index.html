@@ -1,1 +1,26 @@
-<html><body><h1>Accueil</h1></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BRKBOTAI - Pronos Gratuits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="BRKBOTAI Logo" style="width: 100px;">
+        <h1>BRKBOTAI</h1>
+    </div>
+    <h2>Pronos gratuits du jour</h2>
+    <div class="pronos">
+        <div class="prono">
+            <p><strong>MATCH :</strong> PSG vs OM</p>
+            <p><strong>PRONO :</strong> PSG gagne</p>
+        </div>
+        <div class="prono">
+            <p><strong>MATCH :</strong> PETROLEUM vs POLY</p>
+            <p><strong>PRONO :</strong> -3.5 buts</p>
+        </div>
+    </div>
+    <a class="vip-button" href="/login">ACCÉDEZ À L'ESPACE VIP</a>
+</body>
+</html>
