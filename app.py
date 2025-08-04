@@ -29,12 +29,29 @@ def is_subscription_valid(email):
 def index():
     return render_template("index.html")
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
-    if request.method == 'POST':
-        session['email'] = request.form['email']
-        return redirect(url_for('vip'))
-    return render_template("login.html")
+    if request.method=='POST':
+        email    = request.form['email']
+        password = request.form['password']
+        if email in users and check_password_hash(users[email], password):
+            session['email']=email
+            return redirect(url_for('vip'))
+        return "Identifiants incorrects"
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET','POST'])
+def register():
+    if request.method=='POST':
+        email    = request.form['email']
+        pwd      = request.form['password']
+        confirm  = request.form['confirm']
+        if pwd!=confirm:
+            return "Mots de passe différents"
+        users[email]=generate_password_hash(pwd)
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
 
 @app.route('/vip')
 def vip():
