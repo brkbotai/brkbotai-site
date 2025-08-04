@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des utilisateurs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" style="width:100px;" alt="Logo">
+    <h1>Utilisateurs enregistrés</h1>
+  </div>
+  <ul>
+    {% for u in users %}
+      <li>{{ u.email }}</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{{ url_for('add_abonne') }}" class="vip-button">Retour admin</a></p>
+</body>
+</html>
