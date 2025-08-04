@@ -1,20 +1,15 @@
+
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Connexion - BRKBOTAI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Connexion</title>
 </head>
 <body>
-    <div class="header">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" style="width: 100px;">
-        <h1>Connexion à l'espace VIP</h1>
-    </div>
-    <form method="POST">
-        <input type="email" name="email" placeholder="E-mail" required><br>
-        <input type="password" name="password" placeholder="Mot de passe" required><br>
-        <button type="submit">Se connecter</button>
+    <h2>Connexion</h2>
+    <form method="post">
+        Email: <input type="email" name="email"><br>
+        <input type="submit" value="Connexion">
     </form>
-    <p><a href="/register">Créer un compte</a></p>
 </body>
 </html>

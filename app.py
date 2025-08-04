@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 import json
@@ -26,19 +27,14 @@ def is_subscription_valid(email):
 
 @app.route('/')
 def index():
-    return '<h1>Accueil BRKBOTAI</h1><p><a href="/login">Connexion</a></p>'
+    return render_template("index.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         session['email'] = request.form['email']
         return redirect(url_for('vip'))
-    return """
-    <form method='post'>
-        Email: <input type='email' name='email'><br>
-        <input type='submit' value='Connexion'>
-    </form>
-    """
+    return render_template("login.html")
 
 @app.route('/vip')
 def vip():
@@ -46,7 +42,7 @@ def vip():
         return redirect(url_for('login'))
     if not is_subscription_valid(session['email']):
         return "Abonnement expiré ou non valide."
-    return '<h2>Espace VIP</h2><p>Bienvenue !</p>'
+    return render_template("vip.html")
 
 @app.route('/add_abonne', methods=['GET', 'POST'])
 def add_abonne():
@@ -64,16 +60,8 @@ def add_abonne():
         })
         with open(ABONNEMENTS_FILE, 'w') as f:
             json.dump(abonnements, f, indent=4)
-        return "Abonné ajouté avec succès ✅ <a href='/add_abonne'>Retour</a>"
-    return """
-    <h2>Ajouter un nouvel abonné</h2>
-    <form method='post'>
-        Email : <input type='email' name='email'><br>
-        Date de début : <input type='date' name='date_debut'><br>
-        Date de fin : <input type='date' name='date_fin'><br>
-        <input type='submit' value='Ajouter'>
-    </form>
-    """
+        return redirect(url_for('vip'))
+    return render_template("add_abonne.html")
 
 @app.route('/logout')
 def logout():
