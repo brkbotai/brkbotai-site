@@ -1,13 +1,35 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <title>Espace VIP</title>
+  <meta charset="UTF-8">
+  <title>Espace VIP - BRKBOTAI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h2>Espace VIP</h2>
-    <p>Bienvenue dans l'espace VIP BRKBOTAI</p>
-    <a href="/logout">Déconnexion</a>
+  <div class="header">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" style="width:100px;" alt="Logo">
+    <h1>Espace VIP</h1>
+  </div>
+
+  <p>Bienvenue dans l’espace VIP BRKBOTAI !</p>
+
+  <!-- Bouton pour télécharger le PDF du top 5 -->
+  <a href="{{ url_for('static', filename='files/top5.pdf') }}"
+     class="vip-button" download>
+    Télécharger le Top 5 du jour
+  </a>
+
+  <!-- Image combiné du jour -->
+  <h3>Combiné du jour</h3>
+  <img src="{{ url_for('static', filename='img/combine.jpg') }}"
+       style="max-width:90%; margin:10px 0;" alt="Combiné du jour">
+
+  <!-- Image fun du jour -->
+  <h3>Fun du jour</h3>
+  <img src="{{ url_for('static', filename='img/fun.jpg') }}"
+       style="max-width:90%; margin:10px 0;" alt="Fun du jour">
+
+  <!-- Lien de déconnexion -->
+  <p><a href="{{ url_for('logout') }}" class="vip-button">Déconnexion</a></p>
 </body>
 </html>
