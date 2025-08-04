@@ -62,7 +62,6 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # If already logged in and subscription valid, go to VIP directly
     if 'email' in session and is_subscription_valid(session['email']):
         return redirect(url_for('vip'))
     if request.method == 'POST':
@@ -99,7 +98,15 @@ def add_abonne():
         with open(ABONNEMENTS_FILE, 'w') as f:
             json.dump(abonnements, f, indent=4)
         return redirect(url_for('vip'))
-    return render_template('add_abonne.html')
+    abonnements = load_abonnements()
+    return render_template('add_abonne.html', abonnements=abonnements)
+
+@app.route('/users')
+def list_users():
+    if 'email' not in session or session['email'] != 'jamalassaki@hotmail.fr':
+        return redirect(url_for('login'))
+    users = load_users()
+    return render_template('list_users.html', users=users)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
