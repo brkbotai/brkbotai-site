@@ -10,10 +10,20 @@
     <h1>Admin – Éditer les pronos</h1>
   </div>
   <form method="POST">
-    {% for i, pr in enumerate(pronos) %}
+    {% for pr in pronos %}
       <div class="prono-edit">
-        <input type="text" name="match_{{ i }}" value="{{ pr.match }}" placeholder="Match"><br>
-        <input type="text" name="prono_{{ i }}" value="{{ pr.prono }}" placeholder="Prono"><br>
+        <input
+          type="text"
+          name="match_{{ loop.index0 }}"
+          value="{{ pr.match }}"
+          placeholder="Match"
+        ><br>
+        <input
+          type="text"
+          name="prono_{{ loop.index0 }}"
+          value="{{ pr.prono }}"
+          placeholder="Prono"
+        ><br>
       </div>
       <hr>
     {% endfor %}
