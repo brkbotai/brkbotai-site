@@ -11,17 +11,15 @@
     <h1>BRKBOTAI</h1>
   </div>
 
-  <h2>Pronos gratuits du jour</h2>
-  <div class="pronos">
+<h2>Pronos gratuits du jour</h2>
+<div class="pronos">
+  {% for p in pronos %}
     <div class="prono">
-      <p><strong>MATCH :</strong> PSG vs OM</p>
-      <p><strong>PRONO :</strong> PSG gagne</p>
+      <p><strong>MATCH :</strong> {{ p.match }}</p>
+      <p><strong>PRONO :</strong> {{ p.prono }}</p>
     </div>
-    <div class="prono">
-      <p><strong>MATCH :</strong> PETROLEUM vs POLY</p>
-      <p><strong>PRONO :</strong> -3.5 buts</p>
-    </div>
-  </div>
+  {% endfor %}
+</div>
 
   <a class="vip-button" href="{{ url_for('login') }}">ACCÉDEZ À L'ESPACE VIP</a>
 </body>

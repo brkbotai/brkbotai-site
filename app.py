@@ -7,9 +7,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Files for subscriptions and user credentials
+# File paths
 ABONNEMENTS_FILE = 'abonnements.json'
 USERS_FILE = 'users.json'
+PRONOS_FILE = 'pronos.json'
 
 # Load and save functions for abonnements (JSON)
 def load_abonnements():
@@ -40,9 +41,18 @@ def save_users(users):
     with open(USERS_FILE, 'w') as f:
         json.dump(users, f, indent=4)
 
+# Load pronos
+def load_pronos():
+    try:
+        with open(PRONOS_FILE, 'r') as f:
+            return json.load(f).get('pronos', [])
+    except FileNotFoundError:
+        return []
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    pronos = load_pronos()
+    return render_template('index.html', pronos=pronos)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -125,6 +135,26 @@ def upload():
             fun.save(os.path.join('static/img', 'fun.jpg'))
         return "Fichiers uploadés avec succès ! <a href='/upload'>Retour</a>"
     return render_template('upload.html')
+
+@app.route('/edit_pronos', methods=['GET','POST'])
+def edit_pronos():
+    ADMIN_EMAIL = 'jamalassaki@hotmail.fr'
+    if 'email' not in session or session['email'] != ADMIN_EMAIL:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        data = {'pronos': []}
+        i = 0
+        while f'match_{i}' in request.form:
+            data['pronos'].append({
+                'match': request.form[f'match_{i}'],
+                'prono': request.form[f'prono_{i}']
+            })
+            i += 1
+        with open(PRONOS_FILE, 'w') as f:
+            json.dump(data, f, indent=4)
+        return redirect(url_for('index'))
+    pronos = load_pronos()
+    return render_template('edit_pronos.html', pronos=pronos)
 
 @app.route('/logout')
 def logout():

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Éditer les pronos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="header">
+    <h1>Admin – Éditer les pronos</h1>
+  </div>
+  <form method="POST">
+    {% for i, pr in enumerate(pronos) %}
+      <div class="prono-edit">
+        <input type="text" name="match_{{ i }}" value="{{ pr.match }}" placeholder="Match"><br>
+        <input type="text" name="prono_{{ i }}" value="{{ pr.prono }}" placeholder="Prono"><br>
+      </div>
+      <hr>
+    {% endfor %}
+    <button type="submit">Enregistrer</button>
+  </form>
+  <p><a href="{{ url_for('index') }}">← Retour à l’accueil</a></p>
+</body>
+</html>
